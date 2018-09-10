@@ -1,4 +1,4 @@
-require_relative 'deposit'
+require_relative 'transaction'
 
 class Account
   attr_reader :balance, :transactions
@@ -9,10 +9,21 @@ class Account
   end
 
   def deposit(amount)
-    deposit = Deposit.new(amount)
+    raise "Please input a positive number" unless positive_number?(amount)
+
+    deposit = Transaction.new(amount)
     @balance += amount
     deposit.balance = @balance
     @transactions.push(deposit)
+  end
+
+  private
+
+  def positive_number?(input)
+    return false unless input.is_a?(Integer) || input.is_a?(Float)
+    return false unless input.positive?
+
+    true
   end
 
 
