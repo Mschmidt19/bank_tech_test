@@ -1,3 +1,5 @@
+require 'time'
+
 class Account
   attr_reader :balance, :transactions
 
@@ -10,6 +12,14 @@ class Account
     raise 'Please input a positive number' unless positive_number?(amount)
 
     @balance += amount
+    transaction =
+    {
+      :time => format_time(Time.now),
+      :credit => amount,
+      :debit => nil,
+      :balance => @balance
+    }
+    @transactions.push(transaction)
   end
 
   private
@@ -19,5 +29,9 @@ class Account
     return false unless input.positive?
 
     true
+  end
+
+  def format_time(time)
+    return time.strftime("%d/%m/%Y")
   end
 end

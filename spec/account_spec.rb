@@ -2,6 +2,11 @@ require 'account'
 
 describe Account do
   let(:account) { described_class.new }
+  let(:time) { Time.now }
+
+  before(:each) do
+    allow(Time).to receive(:now).and_return(time)
+  end
 
   describe '#balance' do
     context 'upon initialization' do
@@ -32,6 +37,11 @@ describe Account do
     it 'adds amount passed to balance if no error is raised' do
       account.deposit(100.50)
       expect(account.balance).to be(100.50)
+    end
+    it 'should push a transaction hash to account.transactions' do
+      account.deposit(50)
+      expected = [{:time => time.strftime("%d/%m/%Y"), :credit => 50, :debit => nil, :balance => 50}]
+      expect(account.transactions).to eq expected
     end
   end
 end
