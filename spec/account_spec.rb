@@ -2,11 +2,13 @@ require 'account'
 
 describe Account do
   let(:account) { described_class.new }
-  let(:time) { Time.now }
-
-  before(:each) do
-    allow(Time).to receive(:now).and_return(time)
-  end
+  # let(:mock_deposit) { double :deposit_instance }
+  #
+  # before do
+  #   mock_deposit.instance_variable_set(:@date, "10/09/2018")
+  #   mock_deposit.instance_variable_set(:@credit, 50)
+  #   mock_deposit.instance_variable_set(:@balance, 50)
+  # end
 
   describe '#balance' do
     context 'upon initialization' do
@@ -38,10 +40,9 @@ describe Account do
       account.deposit(100.50)
       expect(account.balance).to be(100.50)
     end
-    it 'should push a transaction hash to account.transactions' do
+    it 'pushes a new deposit object into @transactions' do
+      expect(account.transactions).to receive(:push)
       account.deposit(50)
-      expected = [{:time => time.strftime("%d/%m/%Y"), :credit => 50, :debit => nil, :balance => 50}]
-      expect(account.transactions).to eq expected
     end
   end
 end

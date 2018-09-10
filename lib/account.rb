@@ -1,4 +1,4 @@
-require 'time'
+require_relative 'deposit'
 
 class Account
   attr_reader :balance, :transactions
@@ -9,29 +9,11 @@ class Account
   end
 
   def deposit(amount)
-    raise 'Please input a positive number' unless positive_number?(amount)
-
+    deposit = Deposit.new(amount)
     @balance += amount
-    transaction =
-    {
-      :time => format_time(Time.now),
-      :credit => amount,
-      :debit => nil,
-      :balance => @balance
-    }
-    @transactions.push(transaction)
+    deposit.balance = @balance
+    @transactions.push(deposit)
   end
 
-  private
 
-  def positive_number?(input)
-    return false unless input.is_a?(Integer) || input.is_a?(Float)
-    return false unless input.positive?
-
-    true
-  end
-
-  def format_time(time)
-    return time.strftime("%d/%m/%Y")
-  end
 end
