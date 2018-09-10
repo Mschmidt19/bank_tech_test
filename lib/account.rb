@@ -17,6 +17,15 @@ class Account
     @transactions.push(deposit)
   end
 
+  def withdraw(amount)
+    raise "Please input a positive number" unless positive_number?(amount)
+
+    withdrawal = Transaction.new(-amount)
+    @balance -= amount
+    withdrawal.balance = @balance
+    @transactions.push(withdrawal)
+  end
+
   private
 
   def positive_number?(input)
@@ -25,6 +34,5 @@ class Account
 
     true
   end
-
 
 end

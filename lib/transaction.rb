@@ -7,6 +7,7 @@ class Transaction
 
   def initialize(amount)
     raise "Please input a number" unless number?(amount)
+
     @date = format_time(Time.now)
     @credit = amount if amount.positive?
     @debit = -amount if amount.negative?
