@@ -1,11 +1,13 @@
 require_relative 'transaction'
+require_relative 'statement'
 
 class Account
-  attr_reader :balance, :transactions
+  attr_reader :balance, :transactions, :statement
 
   def initialize
     @balance = 0
     @transactions = []
+    @statement = Statement.new
   end
 
   def deposit(amount)
@@ -24,6 +26,10 @@ class Account
     @balance -= amount
     withdrawal.balance = @balance
     @transactions.push(withdrawal)
+  end
+
+  def print_statement
+    @statement.print_statement(@transactions)
   end
 
   private

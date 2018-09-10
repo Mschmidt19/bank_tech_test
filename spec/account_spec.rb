@@ -2,13 +2,11 @@ require 'account'
 
 describe Account do
   let(:account) { described_class.new }
-  # let(:mock_deposit) { double :deposit_instance }
-  #
-  # before do
-  #   mock_deposit.instance_variable_set(:@date, "10/09/2018")
-  #   mock_deposit.instance_variable_set(:@credit, 50)
-  #   mock_deposit.instance_variable_set(:@balance, 50)
-  # end
+  let(:mock_statement_instance) { double :statement_instance }
+
+  before do
+    account.instance_variable_set(:@statement, mock_statement_instance)
+  end
 
   describe '#balance' do
     context 'upon initialization' do
@@ -63,6 +61,13 @@ describe Account do
     it 'pushes a new transaction object into @transactions' do
       expect(account.transactions).to receive(:push)
       account.withdraw(100)
+    end
+  end
+
+  describe '#print_statement' do
+    it 'delegates printing of transactions to Statement class' do
+      expect(account.statement).to receive(:print_statement).with(account.transactions)
+      account.print_statement
     end
   end
 end
