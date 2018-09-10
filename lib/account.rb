@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Account
   attr_reader :balance, :transactions
 
@@ -19,6 +17,7 @@ class Account
   def positive_number?(input)
     return false unless input.is_a?(Integer) || input.is_a?(Float)
     return false unless input.positive?
+
     true
   end
 end
