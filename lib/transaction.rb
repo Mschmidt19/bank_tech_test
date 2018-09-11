@@ -6,9 +6,8 @@ class Transaction
   attr_accessor :balance
 
   def initialize(amount)
-    raise "Please input a number" unless number?(amount)
-
-    @date = format_time(Time.now)
+    check_valid(amount)
+    @date = Time.now
     @credit = amount if amount.positive?
     @debit = -amount if amount.negative?
   end
@@ -16,13 +15,21 @@ class Transaction
   private
 
   def number?(input)
-    return false unless input.is_a?(Integer) || input.is_a?(Float)
+    return false unless input.is_a?(Numeric)
 
     true
   end
 
-  def format_time(time)
-    return time.strftime("%d/%m/%Y")
+  def under_two_decimals?(input)
+    return true if input.is_a?(Integer)
+    return false unless input.to_s.split(".")[1].length <= 2
+
+    true
+  end
+
+  def check_valid(input)
+    raise "Please input a number" unless number?(input)
+    raise "Please input a maximum of two decimal places" unless under_two_decimals?(input)
   end
 
 end

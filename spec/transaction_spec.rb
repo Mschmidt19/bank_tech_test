@@ -5,7 +5,7 @@ describe Transaction do
   let(:withdrawal) { Transaction.new(-25) }
   let(:time) { Time.now }
 
-  before(:each) do
+  before do
     allow(Time).to receive(:now).and_return(time)
   end
 
@@ -15,8 +15,13 @@ describe Transaction do
       expect { Transaction.new("a") }.to raise_error(expected_message)
       expect { Transaction.new([]) }.to raise_error(expected_message)
     end
+    it 'Raises an error if argument has more than two decimal places' do
+      expected_message = "Please input a maximum of two decimal places"
+      expect { Transaction.new(50.345) }.to raise_error(expected_message)
+      expect { Transaction.new(-50.345) }.to raise_error(expected_message)
+    end
     it "Sets @date to a formatted version of Time.now" do
-      expect(deposit.date).to eq(time.strftime("%d/%m/%Y"))
+      expect(deposit.date).to eq(time)
     end
 
     context "Making a deposit" do

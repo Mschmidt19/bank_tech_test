@@ -11,7 +11,7 @@ class Statement
       "#{'Debit'.center(12)}||" +
       "#{'Balance'.center(12)}"
       transaction_array.reverse_each do |t|
-        puts "#{t.date.center(12)}||" +
+        puts "#{format_time(t.date).center(12)}||" +
         "#{format_float(t.credit).center(12)}||" +
         "#{format_float(t.debit).center(12)}||" +
         "#{format_float(t.balance).center(12)}"
@@ -24,6 +24,10 @@ class Statement
     return "" if number.nil?
 
     return sprintf('%.2f', number)
+  end
+
+  def format_time(time)
+    return time.strftime("%d/%m/%Y")
   end
 
 end
