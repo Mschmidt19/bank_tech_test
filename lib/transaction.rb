@@ -20,7 +20,7 @@ class Transaction
     true
   end
 
-  def under_two_decimals?(input)
+  def two_decimals?(input)
     return true if input.is_a?(Integer)
     return false unless input.to_s.split(".")[1].length <= 2
 
@@ -29,7 +29,7 @@ class Transaction
 
   def check_valid(input)
     raise "Please input a number" unless number?(input)
-    raise "Please input a maximum of two decimal places" unless under_two_decimals?(input)
+    raise "Please input only two decimal places" unless two_decimals?(input)
   end
 
 end

@@ -16,7 +16,7 @@ describe Transaction do
       expect { Transaction.new([]) }.to raise_error(expected_message)
     end
     it 'Raises an error if argument has more than two decimal places' do
-      expected_message = "Please input a maximum of two decimal places"
+      expected_message = "Please input only two decimal places"
       expect { Transaction.new(50.345) }.to raise_error(expected_message)
       expect { Transaction.new(-50.345) }.to raise_error(expected_message)
     end
