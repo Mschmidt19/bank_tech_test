@@ -14,22 +14,22 @@ class Account
     raise "Please input a positive number" unless positive_number?(amount)
 
     deposit = Transaction.new(amount)
-    @balance += amount
-    deposit.balance = @balance
-    @transactions.push(deposit)
+    add_to_balance(amount)
+    deposit.balance = self.balance
+    self.transactions.push(deposit)
   end
 
   def withdraw(amount)
     raise "Please input a positive number" unless positive_number?(amount)
 
     withdrawal = Transaction.new(-amount)
-    @balance -= amount
-    withdrawal.balance = @balance
-    @transactions.push(withdrawal)
+    subtract_from_balance(amount)
+    withdrawal.balance = self.balance
+    self.transactions.push(withdrawal)
   end
 
   def print_statement
-    @statement.print_statement(@transactions)
+    self.statement.print_statement(self.transactions)
   end
 
   private
@@ -39,6 +39,14 @@ class Account
     return false unless input.positive?
 
     true
+  end
+
+  def add_to_balance(amount)
+    @balance += amount
+  end
+
+  def subtract_from_balance(amount)
+    @balance -= amount
   end
 
 end
