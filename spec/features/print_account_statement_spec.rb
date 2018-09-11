@@ -11,7 +11,7 @@ describe "User can print a statement that includes all transactions" do
     account = Account.new
     account.deposit(500)
     account.withdraw(100)
-    expected_output = expected_output = "#{'Date'.center(12)}||#{'Credit'.center(12)}||#{'Debit'.center(12)}||#{'Balance'.center(12)}\n#{time.strftime("%d/%m/%Y").center(12)}||#{''.center(12)}||#{'100.00'.center(12)}||#{'400.00'.center(12)}\n#{time.strftime("%d/%m/%Y").center(12)}||#{'500.00'.center(12)}||#{''.center(12)}||#{'500.00'.center(12)}\n"
+    expected_output = "#{'Date'.center(12)}||#{'Credit'.center(12)}||#{'Debit'.center(12)}||#{'Balance'.center(12)}\n#{time.strftime("%d/%m/%Y").center(12)}||#{''.center(12)}||#{'100.00'.center(12)}||#{'400.00'.center(12)}\n#{time.strftime("%d/%m/%Y").center(12)}||#{'500.00'.center(12)}||#{''.center(12)}||#{'500.00'.center(12)}\n"
     expect { account.print_statement }.to output(expected_output).to_stdout
   end
 end
