@@ -56,7 +56,8 @@ describe Account do
 
   describe '#print_statement' do
     it 'Delegates printing of transactions to Statement class' do
-      expect(account.statement).to receive(:print_statement).with(account.transactions)
+      my_account = Account.new(mock_statement_instance)
+      expect(my_account.statement).to receive(:print_statement).with(account.transactions)
       account.print_statement
     end
   end

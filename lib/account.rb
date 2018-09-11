@@ -2,34 +2,29 @@ require_relative 'transaction'
 require_relative 'statement'
 
 class Account
-  attr_reader :balance, :transactions, :statement
+  attr_reader :balance, :transactions, :transaction_class, :statement
 
-  def initialize
+  def initialize(statement = Statement.new, transaction_class = Transaction)
     @balance = 0
     @transactions = []
-    @statement = Statement.new
+    @statement = statement
+    @transaction_class = transaction_class
   end
 
   def deposit(amount)
     raise "Please input a positive number" unless positive_number?(amount)
 
-    deposit = Transaction.new(amount)
-    add_to_balance(amount)
-    deposit.balance = self.balance
-    self.transactions.push(deposit)
+    update_account(amount)
   end
 
   def withdraw(amount)
     raise "Please input a positive number" unless positive_number?(amount)
 
-    withdrawal = Transaction.new(-amount)
-    subtract_from_balance(amount)
-    withdrawal.balance = self.balance
-    self.transactions.push(withdrawal)
+    update_account(-amount)
   end
 
   def print_statement
-    self.statement.print_statement(self.transactions)
+    statement.print_statement(transactions)
   end
 
   private
@@ -41,12 +36,15 @@ class Account
     true
   end
 
-  def add_to_balance(amount)
+  def change_balance(amount)
     @balance += amount
   end
 
-  def subtract_from_balance(amount)
-    @balance -= amount
+  def update_account(amount)
+    new_transaction = transaction_class.new(amount)
+    change_balance(amount)
+    new_transaction.balance = balance
+    transactions.push(new_transaction)
   end
 
 end

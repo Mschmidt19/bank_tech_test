@@ -10,6 +10,7 @@ class Transaction
     @date = Time.now
     @credit = amount if amount.positive?
     @debit = -amount if amount.negative?
+    @balance = nil
   end
 
   private
