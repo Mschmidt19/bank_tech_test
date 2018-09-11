@@ -24,6 +24,7 @@ class Account
 
   def balance
     return 0 if transactions.empty?
+
     return transactions.last.balance
   end
 
@@ -42,7 +43,7 @@ class Account
 
   def update_account(amount)
     new_transaction = transaction_class.new(amount)
-    new_transaction.balance = self.balance + amount
+    new_transaction.balance = balance + amount
     transactions.push(new_transaction)
   end
 
