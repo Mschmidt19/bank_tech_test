@@ -12,7 +12,7 @@
 
 ### To check test coverage:
 * Test coverage is included in the terminal output when running rspec, however you can also:
-* Open the coverage viewer in your browser `open coverage/index.html`
+* After running rspec, open the coverage viewer in your browser `open coverage/index.html`
 
 ### To check linter:
 * Run `rubocop`
