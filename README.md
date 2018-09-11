@@ -8,6 +8,7 @@
 
 ### To run tests:
 * Run `rspec`
+* Feature tests are in the './spec/features' directory, one for each user story
 
 ### To check test coverage:
 * Test coverage is included in the terminal output when running rspec, however you can also:
@@ -27,10 +28,32 @@
 * When finished, exit IRB `exit`
 
 ## Context
+This project is a mock "tech test" simulating a tech test that one might get when applying for a developer job. The time frame for this test was two days, though I completed it in just over one day. The problem is quite simple, though the goal of this project is to right very clean, well tested code that follows all best practices.
 
 ## Thought process
+Initially, I began with two classes in mind, one 'account' class, responsible for the majority of the program, and one 'displayer' class, responsible for printing your account statement. I realized that there is a possibility for both third class, a 'transaction' class, which can be used in place of a hash to store information on each transaction. I nearly added two separate classes, one for withdrawals and one for deposits, but I realized this would not make my code very DRY as they would be nearly identical.
+Overall, I wanted this program to function properly so I kept edge cases in mind. I began checking for incorrect inputs that could cause problems almost immediately, but it wasn't until much later that I added a final check for too many decimal places (which could cause discrepancies between bank balance and printed statements if gone unchecked).  
 
 ## Possible areas to improve
+The biggest area that may need to be changed is the formatting of terminal outputs. I decided from the start to format the account statement to increase readability, though it may have been the wrong decision as It was not explicitly asked for. I did ensure that the column widths can expand to hold very large data, though I still don't know if it was the correct choice. Unfortunately, this does cause two offenses on rubocop, though I'm not positive that removing the formatting will correct the offenses.
+Secondly, there are still places that my code repeats itself. Specifically the specs for deposit and withdrawal on account are extremely similar. I'm not exactly sure how to clear this up, as they are inherently very similar.
+
+## User stories
+```
+As member of a bank
+So that I can store my money
+I would like to be able to deposit funds
+```
+```
+As member of a bank
+So that I can have money to spend
+I would like to be able to withdraw funds
+```
+```
+As member of a bank
+So that I can keep track of my transactions
+I would like to be able to print a statement of all my transactions
+```
 
 ## Specification
 ### Requirements

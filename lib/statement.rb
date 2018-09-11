@@ -6,15 +6,16 @@ class Statement
     if transaction_array.empty?
       puts "Your account has no transactions to display"
     else
-      puts "#{'Date'.center(12)}||" +
-      "#{'Credit'.center(12)}||" +
-      "#{'Debit'.center(12)}||" +
-      "#{'Balance'.center(12)}"
+      width = find_longest_data(transaction_array) + 2
+      puts "#{'Date'.center(width)}||" +
+      "#{'Credit'.center(width)}||" +
+      "#{'Debit'.center(width)}||" +
+      "#{'Balance'.center(width)}"
       transaction_array.reverse_each do |t|
-        puts "#{format_time(t.date).center(12)}||" +
-        "#{format_float(t.credit).center(12)}||" +
-        "#{format_float(t.debit).center(12)}||" +
-        "#{format_float(t.balance).center(12)}"
+        puts "#{format_time(t.date).center(width)}||" +
+        "#{format_float(t.credit).center(width)}||" +
+        "#{format_float(t.debit).center(width)}||" +
+        "#{format_float(t.balance).center(width)}"
       end
     end
   end
@@ -28,6 +29,19 @@ class Statement
 
   def format_time(time)
     return time.strftime("%d/%m/%Y")
+  end
+
+  def find_longest_data(transaction_array)
+    max = 0
+    transaction_array.each do |t|
+      date = format_time(t.date).length
+      credit = format_float(t.credit).length
+      debit = format_float(t.debit).length
+      balance = format_float(t.balance).length
+      largest = [date, credit, debit, balance].max
+      max = largest if largest > max
+    end
+    return max
   end
 
 end

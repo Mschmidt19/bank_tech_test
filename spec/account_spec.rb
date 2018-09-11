@@ -21,9 +21,6 @@ describe Account do
   end
 
   describe '#deposit' do
-    it 'Accepts a deposit amount as an argument' do
-      expect(account).to respond_to(:deposit).with(1).argument
-    end
     it 'Raises an error if argument is not a positive integer or float' do
       expected_message = 'Please input a positive number'
       expect { account.deposit('a') }.to raise_error(expected_message)
@@ -41,9 +38,6 @@ describe Account do
   end
 
   describe '#withdraw' do
-    it 'Accepts a withdrawal amount as an argument' do
-      expect(account).to respond_to(:withdraw).with(1).argument
-    end
     it 'Raises an error if argument is not a positive integer or float' do
       expected_message = 'Please input a positive number'
       expect { account.withdraw('a') }.to raise_error(expected_message)
